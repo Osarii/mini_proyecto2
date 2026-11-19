@@ -1,0 +1,22 @@
+# Dependencias
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Variables de entorno y secretos (NUNCA subir al repositorio)
+.env
+.env.local
+credentials/
+*.pem
+*.key
+
+# Base de datos local generada automáticamente
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
+# Archivos del sistema y logs
+.DS_Store
+*.log
+npm-debug.log*

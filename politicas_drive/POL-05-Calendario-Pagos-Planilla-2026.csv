@@ -1,0 +1,26 @@
+Periodo,Descripcion,Fecha_Corte_Horas_Extra,Fecha_Oficial_Pago,Fecha_Efectiva_Deposito,Dia_Semana,Observaciones
+2026-Q01,Primera Quincena Enero 2026,2026-01-10,2026-01-15,2026-01-15,Jueves,Pago quincenal regular
+2026-Q02,Segunda Quincena Enero 2026,2026-01-25,2026-01-30,2026-01-30,Viernes,Cierre de mes y ajuste de deducciones
+2026-Q03,Primera Quincena Febrero 2026,2026-02-10,2026-02-13,2026-02-13,Viernes,15 cae domingo - adelantado al viernes 13
+2026-Q04,Segunda Quincena Febrero 2026,2026-02-25,2026-02-27,2026-02-27,Viernes,Cierre de mes febrero
+2026-Q05,Primera Quincena Marzo 2026,2026-03-10,2026-03-13,2026-03-13,Viernes,15 cae domingo - adelantado al viernes 13
+2026-Q06,Segunda Quincena Marzo 2026,2026-03-25,2026-03-31,2026-03-31,Martes,Cierre de mes marzo
+2026-Q07,Primera Quincena Abril 2026,2026-04-10,2026-04-15,2026-04-15,Miercoles,Pago quincenal regular
+2026-Q08,Segunda Quincena Abril 2026,2026-04-25,2026-04-30,2026-04-30,Jueves,Cierre de mes abril
+2026-Q09,Primera Quincena Mayo 2026,2026-05-10,2026-05-15,2026-05-15,Viernes,Pago quincenal regular
+2026-Q10,Segunda Quincena Mayo 2026,2026-05-25,2026-05-29,2026-05-29,Viernes,31 cae domingo - adelantado al viernes 29
+2026-Q11,Primera Quincena Junio 2026,2026-06-10,2026-06-15,2026-06-15,Lunes,Pago quincenal regular
+2026-Q12,Segunda Quincena Junio 2026,2026-06-25,2026-06-30,2026-06-30,Martes,Cierre de primer semestre
+2026-Q13,Primera Quincena Julio 2026,2026-07-10,2026-07-15,2026-07-15,Miercoles,Pago quincenal regular
+2026-Q14,Segunda Quincena Julio 2026,2026-07-25,2026-07-31,2026-07-31,Viernes,Cierre de mes julio
+2026-Q15,Primera Quincena Agosto 2026,2026-08-10,2026-08-14,2026-08-14,Viernes,15 cae sabado y es feriado - adelantado al viernes 14
+2026-Q16,Segunda Quincena Agosto 2026,2026-08-25,2026-08-31,2026-08-31,Lunes,Cierre de mes agosto
+2026-Q17,Primera Quincena Setiembre 2026,2026-09-10,2026-09-14,2026-09-14,Lunes,15 es feriado Independencia - adelantado al lunes 14
+2026-Q18,Segunda Quincena Setiembre 2026,2026-09-25,2026-09-30,2026-09-30,Miercoles,Cierre de mes setiembre
+2026-Q19,Primera Quincena Octubre 2026,2026-10-10,2026-10-15,2026-10-15,Jueves,Pago quincenal regular
+2026-Q20,Segunda Quincena Octubre 2026,2026-10-25,2026-10-30,2026-10-30,Viernes,31 cae sabado - adelantado al viernes 30
+2026-Q21,Primera Quincena Noviembre 2026,2026-11-10,2026-11-13,2026-11-13,Viernes,15 cae domingo - adelantado al viernes 13
+2026-Q22,Segunda Quincena Noviembre 2026,2026-11-25,2026-11-30,2026-11-30,Lunes,Cierre de mes y calculo base de aguinaldo
+2026-AGU,Pago de Aguinaldo 2026,2026-11-30,2026-12-05,2026-12-04,Viernes,Pago anticipado de Aguinaldo (Ley 2412) - adelantado por fin de semana
+2026-Q23,Primera Quincena Diciembre 2026,2026-12-10,2026-12-15,2026-12-15,Martes,Pago quincenal regular
+2026-Q24,Segunda Quincena Diciembre 2026,2026-12-20,2026-12-24,2026-12-24,Jueves,Adelantado por receso de fin de ano

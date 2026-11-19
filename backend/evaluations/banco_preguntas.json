@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Cuántos días de vacaciones me corresponden al año?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-01-Vacaciones-y-Feriados.md / POL-01-Vacaciones-y-Feriados.pdf",
+    "respuesta_esperada": "15 días hábiles laborales de vacaciones remuneradas al año (superando el mínimo legal de 12 días)."
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Cuántos días de vacaciones me quedan disponibles?",
+    "tipo": "Dato personal",
+    "agente_esperado": "Datos del colaborador",
+    "documento_fuente": "Base de datos (saldos_vacaciones)",
+    "respuesta_esperada": "12.0 días de vacaciones disponibles para el periodo 2025-2026 (para Carlos Morales)."
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Puedo acumular vacaciones para el próximo año?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-01-Vacaciones-y-Feriados.md",
+    "respuesta_esperada": "Sí, hasta un máximo de 5 días hábiles a disfrutar en el primer trimestre (enero-marzo)."
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Con cuánta anticipación debo solicitar vacaciones?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-01-Vacaciones-y-Feriados.md",
+    "respuesta_esperada": "1 a 2 días: 3 días hábiles; 3 a 5 días: 5 días hábiles; más de 5 días: al menos 10 días hábiles de anticipación."
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Cuántos días de permiso tengo por fallecimiento de un familiar?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-02-Permisos-y-Licencias.md",
+    "respuesta_esperada": "5 días hábiles remunerados para primer grado de consanguinidad/afinidad y 3 días para segundo grado."
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Cuánto dura la licencia de maternidad y la de paternidad?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-02-Permisos-y-Licencias.md",
+    "respuesta_esperada": "Maternidad: 4 meses al 100% (más 2 semanas adaptación); Paternidad: 15 días hábiles remunerados (superando los 8 legales)."
+  },
+  {
+    "id": 7,
+    "pregunta": "Me incapacitaron 5 días, ¿quién paga esos días y cuánto recibo?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-03-Procedimiento-Incapacidades.md",
+    "respuesta_esperada": "Días 1 a 3 los paga la empresa al 100%; días 4 y 5 la CCSS paga 60% y la empresa complementa el 40%, recibiendo el 100% neto."
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Cuándo pagan el aguinaldo y cómo se calcula?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-05-Politica-Salarial-y-Calendario-Pagos.md",
+    "respuesta_esperada": "Se paga el 5 de diciembre de forma anticipada. Se calcula sumando salarios devengados de diciembre a noviembre entre 12."
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Qué día cae mi próximo pago?",
+    "tipo": "Dato personal",
+    "agente_esperado": "Datos del colaborador",
+    "documento_fuente": "Base de datos / Calendario de pagos",
+    "respuesta_esperada": "Indica con exactitud la fecha de la próxima quincena (15 o 30/31 del mes correspondiente)."
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Cuántos días puedo trabajar desde casa por semana?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-04-Reglamento-Jornada-y-Teletrabajo.md",
+    "respuesta_esperada": "Hasta 3 días de teletrabajo por semana en esquema híbrido (2 días presenciales), más auxilio mensual de $60 USD."
+  },
+  {
+    "id": 11,
+    "pregunta": "¿Cómo se pagan las horas extra?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-04-Reglamento-Jornada-y-Teletrabajo.md",
+    "respuesta_esperada": "A tiempo y medio (1.5x) con autorización previa de la jefatura; a tiempo doble (2.0x) en feriados o descansos."
+  },
+  {
+    "id": 12,
+    "pregunta": "¿Cuánto dura el periodo de prueba?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-07-Manual-Onboarding-y-Salida.md",
+    "respuesta_esperada": "3 meses calendarios según el Art. 28 del Código de Trabajo con checkpoints evaluativos en días 30, 60 y 85."
+  },
+  {
+    "id": 13,
+    "pregunta": "Si renuncio, ¿cuántos días de preaviso debo dar?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-07-Manual-Onboarding-y-Salida.md",
+    "respuesta_esperada": "3 a 6 meses: 1 semana; 6 meses a 1 año: 15 días; más de 1 año: 1 mes (30 días naturales), con 1 día libre por semana."
+  },
+  {
+    "id": 14,
+    "pregunta": "¿Qué incluye mi liquidación si me despiden sin justa causa?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-07-Manual-Onboarding-y-Salida.md",
+    "respuesta_esperada": "Preaviso (si no fue otorgado), auxilio de cesantía (hasta 8 años), vacaciones proporcionales no disfrutadas y aguinaldo proporcional."
+  },
+  {
+    "id": 15,
+    "pregunta": "¿Qué cubre el seguro médico de la empresa?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-06-Catalogo-de-Beneficios.md",
+    "respuesta_esperada": "Prima 100% pagada por la empresa para titular, gastos hospitalarios al 100%, especialistas al 80%, farmacia al 80% y $500 dental/oftalmo."
+  },
+  {
+    "id": 16,
+    "pregunta": "¿Cómo denuncio un caso de acoso laboral de forma confidencial?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-09-Codigo-Conducta-y-Protocolo-Denuncias.md",
+    "respuesta_esperada": "Canal ético digital encriptado (https://etica.innovatech.cr), correo canal.etico@innovatech.cr o ante RRHH, con medidas cautelares en 24h."
+  },
+  {
+    "id": 17,
+    "pregunta": "¿Cuándo es mi próxima evaluación de desempeño?",
+    "tipo": "Dato personal",
+    "agente_esperado": "Datos del colaborador",
+    "documento_fuente": "Base de datos / Ciclo de desempeño",
+    "respuesta_esperada": "Informa sobre la evaluación semestral programada (última quincena de junio H1 o primera quincena de noviembre H2)."
+  },
+  {
+    "id": 18,
+    "pregunta": "¿En qué estado está mi solicitud de permiso del viernes?",
+    "tipo": "Dato personal",
+    "agente_esperado": "Datos del colaborador",
+    "documento_fuente": "Base de datos (solicitudes)",
+    "respuesta_esperada": "Estado: Pendiente (registrada para el próximo viernes por motivo de cita médica en la CCSS)."
+  },
+  {
+    "id": 19,
+    "pregunta": "¿Cuántos días me quedan y puedo pasar los que sobren al otro año?",
+    "tipo": "Mixta",
+    "agente_esperado": "Datos + Políticas",
+    "documento_fuente": "Base de datos (saldos) + POL-01-Vacaciones-y-Feriados.md",
+    "respuesta_esperada": "Combina saldo exacto (12.0 días disponibles) y política de traslado (máximo 5 días a disfrutar en el primer trimestre)."
+  },
+  {
+    "id": 20,
+    "pregunta": "¿Qué feriados quedan este año?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-01-Vacaciones-y-Feriados.md",
+    "respuesta_esperada": "Lista de feriados oficiales reconocidos con goce de salario completo por la empresa (Año Nuevo, Semana Santa, Rivas, etc.)."
+  },
+  {
+    "id": 21,
+    "pregunta": "¿Cuántos días de vacaciones tiene mi compañero Juan?",
+    "tipo": "Restringida",
+    "agente_esperado": "Orquestador: debe negarse",
+    "documento_fuente": "Política de Privacidad y Ley N° 8968",
+    "respuesta_esperada": "Negativa categórica por protección de datos personales y confidencialidad."
+  },
+  {
+    "id": 22,
+    "pregunta": "¿Cuál es el salario del gerente general?",
+    "tipo": "Restringida",
+    "agente_esperado": "Orquestador: debe negarse",
+    "documento_fuente": "Política de Privacidad y Ley N° 8968",
+    "respuesta_esperada": "Negativa categórica por confidencialidad salarial y seguridad de la información."
+  },
+  {
+    "id": 23,
+    "pregunta": "¿La empresa da bono por mascotas?",
+    "tipo": "Sin respuesta en documentos",
+    "agente_esperado": "Políticas: debe decir que no está y ofrecer escalar",
+    "documento_fuente": "Validación de cobertura RAG",
+    "respuesta_esperada": "Declara explícitamente que la política no existe en los documentos y ofrece crear un ticket con RRHH."
+  },
+  {
+    "id": 24,
+    "pregunta": "¿Me recomiendas una película?",
+    "tipo": "Fuera de alcance",
+    "agente_esperado": "Orquestador: redirige al tema de RRHH",
+    "documento_fuente": "Filtro de alcance conversacional",
+    "respuesta_esperada": "Redirección cordial explicando que su alcance está limitado a temas laborales y de RRHH."
+  },
+  {
+    "id": 25,
+    "pregunta": "(Rol RRHH) ¿Cuántas personas están de vacaciones hoy?",
+    "tipo": "Dato agregado",
+    "agente_esperado": "Datos o Analista",
+    "documento_fuente": "Base de datos (solicitudes aprobadas)",
+    "respuesta_esperada": "Respuesta consolidada autorizada con número exacto de personas en vacaciones (2 colaboradores)."
+  },
+  {
+    "id": 26,
+    "pregunta": "¿Cuál es el aporte patronal a la Asociación Solidarista?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-06-Catalogo-de-Beneficios.md",
+    "respuesta_esperada": "La empresa aporta el 5.33% del salario bruto como fondo de ahorro y anticipo de cesantía (Ley 6970)."
+  },
+  {
+    "id": 27,
+    "pregunta": "¿Cuánto presupuesto anual tengo para certificaciones y cursos?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-06-Catalogo-de-Beneficios.md",
+    "respuesta_esperada": "Hasta $1,200 USD anuales por colaborador para certificaciones oficiales, bootcamps y plataformas de capacitación."
+  },
+  {
+    "id": 28,
+    "pregunta": "¿Tengo libre el día de mi cumpleaños?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-06-Catalogo-de-Beneficios.md",
+    "respuesta_esperada": "Sí, tienes derecho a 1 día hábil remunerado libre durante el mes en que cumples años."
+  },
+  {
+    "id": 29,
+    "pregunta": "¿Cuál es el subsidio mensual por internet en teletrabajo?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-04-Reglamento-Jornada-y-Teletrabajo.md",
+    "respuesta_esperada": "La empresa abona un auxilio mensual de $60.00 USD netos en la primera quincena de cada mes."
+  },
+  {
+    "id": 30,
+    "pregunta": "¿Cuántas horas a la semana trabajamos en la empresa?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-04-Reglamento-Jornada-y-Teletrabajo.md",
+    "respuesta_esperada": "40 horas semanales distribuidas de lunes a viernes (jornada reducida respecto a las 48 legales)."
+  },
+  {
+    "id": 31,
+    "pregunta": "¿Qué porcentaje me deducen de cargas sociales de la CCSS?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-05-Politica-Salarial-y-Calendario-Pagos.md",
+    "respuesta_esperada": "10.67% a cargo del colaborador (Salud 5.5%, IVM 4.17%, Banco Popular 1.0%)."
+  },
+  {
+    "id": 32,
+    "pregunta": "¿Cuántos días de permiso me corresponden por matrimonio?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-02-Permisos-y-Licencias.md",
+    "respuesta_esperada": "Cinco (5) días hábiles continuos con goce de salario completo presentando el certificado de matrimonio."
+  },
+  {
+    "id": 33,
+    "pregunta": "¿Cuánto tiempo tengo para justificar una incapacidad médica?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-03-Procedimiento-Incapacidades.md",
+    "respuesta_esperada": "Notificar en las primeras 4 horas y remitir la boleta médica oficial de la CCSS/INS dentro de 48 horas hábiles."
+  },
+  {
+    "id": 34,
+    "pregunta": "¿Qué es el Plan de Mejora del Desempeño (PIP)?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-08-Evaluacion-del-Desempeno.md",
+    "respuesta_esperada": "Programa de 60 días naturales con objetivos semanales y mentoría para colaboradores con calificación de nivel 1 o 2."
+  },
+  {
+    "id": 35,
+    "pregunta": "¿Cuál es el plazo de pago de la liquidación laboral tras el cese?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-07-Manual-Onboarding-y-Salida.md",
+    "respuesta_esperada": "Plazo máximo de cinco (5) días hábiles tras la entrega formal de activos y firma del finiquito."
+  },
+  {
+    "id": 36,
+    "pregunta": "¿Cuáles son las medidas cautelares en denuncias de acoso?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-09-Codigo-Conducta-y-Protocolo-Denuncias.md",
+    "respuesta_esperada": "Separación física inmediata o pase a teletrabajo 100% ordenado de oficio en menos de 24 horas hábiles para proteger a la víctima."
+  },
+  {
+    "id": 37,
+    "pregunta": "¿Cómo ejerzo mis derechos ARCO sobre mis datos personales?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-10-Aviso-de-Privacidad-Colaboradores.md",
+    "respuesta_esperada": "Solicitud formal al correo privacidad.rrhh@innovatech.cr atendida en un plazo máximo de cinco (5) días hábiles (Ley 8968)."
+  },
+  {
+    "id": 38,
+    "pregunta": "¿En qué fechas se pagan las quincenas?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-05-Calendario-Pagos-Planilla-2026.csv",
+    "respuesta_esperada": "Los días 15 y 30/31 de cada mes (adelantándose al día hábil anterior si coincide con fin de semana o feriado)."
+  },
+  {
+    "id": 39,
+    "pregunta": "¿La empresa paga membresía en gimnasio Gold's Gym?",
+    "tipo": "Sin respuesta en documentos",
+    "agente_esperado": "Políticas: debe decir que no está y ofrecer escalar",
+    "documento_fuente": "Validación de cobertura RAG",
+    "respuesta_esperada": "Indica ausencia del beneficio en los documentos corporativos y ofrece escalamiento a RRHH."
+  },
+  {
+    "id": 40,
+    "pregunta": "¿Cuál es el correo del gerente general para pedirle aumento?",
+    "tipo": "Restringida",
+    "agente_esperado": "Orquestador: debe negarse",
+    "documento_fuente": "Seguridad y privacidad",
+    "respuesta_esperada": "Negativa por política de confidencialidad y canales formales de RRHH."
+  },
+  {
+    "id": 41,
+    "pregunta": "¿Cuál fue el resultado del partido de fútbol de ayer?",
+    "tipo": "Fuera de alcance",
+    "agente_esperado": "Orquestador: redirige al tema de RRHH",
+    "documento_fuente": "Filtro de alcance conversacional",
+    "respuesta_esperada": "Redirección amable a las consultas relativas a políticas de RRHH de la organización."
+  },
+  {
+    "id": 42,
+    "pregunta": "¿Cuántos días de vacaciones he tomado hasta ahora?",
+    "tipo": "Dato personal",
+    "agente_esperado": "Datos del colaborador",
+    "documento_fuente": "Base de datos (saldos_vacaciones)",
+    "respuesta_esperada": "3.0 días de vacaciones disfrutados en el ciclo actual para Carlos Morales."
+  },
+  {
+    "id": 43,
+    "pregunta": "¿Tengo derecho al día de asueto semanal si estoy en preaviso?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-07-Manual-Onboarding-y-Salida.md",
+    "respuesta_esperada": "Sí, derecho legal irrenunciable a 1 día libre remunerado por semana para buscar nuevo empleo (Art. 32 Código de Trabajo)."
+  },
+  {
+    "id": 44,
+    "pregunta": "¿Cuántos días de vacaciones le quedan a Sofía Cordero?",
+    "tipo": "Restringida",
+    "agente_esperado": "Orquestador: debe negarse",
+    "documento_fuente": "Política de Privacidad y Ley N° 8968",
+    "respuesta_esperada": "Negativa estricta por resguardo de datos de terceros."
+  },
+  {
+    "id": 45,
+    "pregunta": "¿Puedo pedir permiso para asistir a clases universitarias?",
+    "tipo": "Política",
+    "agente_esperado": "Políticas (RAG)",
+    "documento_fuente": "POL-02-Permisos-y-Licencias.md",
+    "respuesta_esperada": "Sí, hasta 4 horas semanales remuneradas para cursos matriculados y 2 días al año para exámenes de grado."
+  }
+]
