@@ -22,13 +22,37 @@ const policyRoutes = require('./routes/policyRoutes');
 const drivePreviewRoutes = require('./routes/drivePreviewRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const selfServiceRoutes = require('./routes/selfServiceRoutes');
+const {
+  corsOptions,
+  securityHeadersMiddleware,
+  issueCsrfToken,
+  verificarCSRF,
+  requierePermiso,
+  sanitizeInputsMiddleware,
+  rateLimitMiddleware
+} = require('./middleware/securityMiddleware');
 
 const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Middlewares de Seguridad (CSP/XSS, CORS estricto sin *, Rate Limit, Saneamiento)
+app.use(securityHeadersMiddleware);
+app.use(cors(corsOptions));
+app.use((err, req, res, next) => {
+  if (err && err.status === 403) {
+    return res.status(403).json({ error: err.message });
+  }
+  next(err);
+});
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+app.use('/api', rateLimitMiddleware(150, 60000));
+app.use('/api', sanitizeInputsMiddleware);
+
+// Endpoint para emitir token anti-CSRF (Double Submit Cookie SameSite=Lax)
+app.get('/api/security/csrf-token', issueCsrfToken);
+
+// Validación CSRF obligatoria en peticiones que modifican estado (POST, PUT, DELETE)
+app.use('/api', verificarCSRF);
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -44,7 +68,7 @@ app.use((req, res, next) => {
 
 // API Routes
 app.use('/api/chat', chatRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/dashboard', requierePermiso('dashboard:ver'), dashboardRoutes);
 app.use('/api/sync', syncRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/tickets', ticketRoutes);
