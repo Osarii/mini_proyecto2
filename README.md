@@ -205,4 +205,25 @@ node evaluations/evaluar_banco.js
    - Acceso al **Dashboard de RRHH** con los 5 indicadores numéricos, 2 gráficos interactivos (tendencia 30 días y ausencias por departamento), tabla de solicitudes pendientes con alerta de demora > 3 días, resumen ejecutivo y botón para disparar un nuevo reporte matutino en tiempo real.
 
 ---
+
+## Seguridad en Aplicaciones Web (Asignación de Seguridad)
+
+El portal implementa defensa en profundidad en `backend/src/middleware/securityMiddleware.js`, `backend/src/server.js` y `frontend/src/main.jsx`:
+
+* **Protección contra Inyección SQL (SQLi):** Todas las consultas a SQLite utilizan sentencias preparadas parametrizadas (`?` en `better-sqlite3`), sin concatenación de entradas de usuario.
+* **Protección contra XSS y Cabeceras de Seguridad:** Se aplica `Content-Security-Policy` (CSP), `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`, saneamiento de entradas en el servidor y renderizado seguro en React.
+* **Protección CSRF (Double Submit Cookie + `SameSite=Lax`):** El endpoint `GET /api/security/csrf-token` emite una cookie `csrf_token` con `SameSite=Lax`; todas las peticiones `POST`, `PUT` y `DELETE` hacia `/api/` validan la cabecera `X-CSRF-Token` y el `Origin` autorizado.
+* **CORS Estricto (sin comodín `*`):** Lista blanca de orígenes autorizados (`localhost:3001`, `localhost:5173` o `ALLOWED_ORIGINS` en `.env`), rechazando orígenes no autorizados con `HTTP 403`.
+* **RBAC en el Servidor y Rate Limiting:** Matriz `permisosPorRol` con denegación por defecto (`requierePermiso('dashboard:ver')` en `/api/dashboard`) y limitación de tasa contra fuerza bruta.
+
+### Deep Research y Simulación Controlada de Inyección SQL
+
+* **Investigación profunda:** [`docs/deep_research_sql_injection.md`](./docs/deep_research_sql_injection.md)
+* **Ejecutar simulación local (Antes vs. Después + CORS/CSRF/CSP/RBAC):**
+  ```bash
+  cd backend && node scripts/simular_ataque_sqli.js
+  ```
+* **Nota importante:** La simulación se ejecuta **únicamente sobre este mini proyecto y en un entorno local de pruebas**. Está prohibido realizar pruebas contra sistemas de terceros, de la institución o cualquier sitio sin autorización.
+
+---
 *Innovatech Solutions S.A. · Departamento de Recursos Humanos & Arquitectura de Software*
