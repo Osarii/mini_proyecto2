@@ -183,6 +183,36 @@ export default function App() {
 
   // Real Email / SMTP Configuration State
   const [emailConfigStatus, setEmailConfigStatus] = useState(null);
+  const [sqliPayload, setSqliPayload] = useState("' OR '1'='1");
+  const [corsTestOrigin, setCorsTestOrigin] = useState('https://sitio-malicioso.com');
+  const [sqliSimResult, setSqliSimResult] = useState(null);
+  const [isSimulatingSqli, setIsSimulatingSqli] = useState(false);
+
+  const handleRunSecuritySim = async (e) => {
+    if (e) e.preventDefault();
+    setIsSimulatingSqli(true);
+    try {
+      const res = await fetch('/api/security/simulate-sqli', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-role': currentUser.rol
+        },
+        body: JSON.stringify({ payload: sqliPayload, testOrigin: corsTestOrigin })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSqliSimResult(data);
+        showToast('Simulación en vivo de Inyección SQL y CORS completada.');
+      } else {
+        showToast(data.error || 'Error ejecutando simulación', 'error');
+      }
+    } catch (err) {
+      showToast('Error de red al ejecutar simulación', 'error');
+    } finally {
+      setIsSimulatingSqli(false);
+    }
+  };
   const [showSmtpModal, setShowSmtpModal] = useState(false);
   const [isSavingSmtp, setIsSavingSmtp] = useState(false);
   const [isSendingTestEmail, setIsSendingTestEmail] = useState(false);
@@ -2018,6 +2048,155 @@ export default function App() {
                 </div>
 
                 
+
+                {/* SECCIÓN RRHH: LABORATORIO EN VIVO DE SEGURIDAD (SQLi y CORS ANTES VS DESPUÉS) */}
+                <div className="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-6 space-y-5">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 border border-red-200 flex items-center justify-center">
+                        <ShieldAlert className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold text-slate-900">
+                          Simulación en Vivo: Inyección SQL y CORS (Antes vs. Después)
+                        </h3>
+                        <p className="text-xs text-slate-500">
+                          Demostración controlada únicamente sobre nuestra base de datos local de pruebas.
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200 px-2.5 py-1 rounded-lg">
+                      Entorno Local · Solo Rol RRHH
+                    </span>
+                  </div>
+
+                  {/* Controles de Payload y Origen */}
+                  <form onSubmit={handleRunSecuritySim} className="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">Payload de Inyección SQL</label>
+                      <input
+                        type="text"
+                        value={sqliPayload}
+                        onChange={(e) => setSqliPayload(e.target.value)}
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">Origen Externo (Prueba CORS)</label>
+                      <input
+                        type="text"
+                        value={corsTestOrigin}
+                        onChange={(e) => setCorsTestOrigin(e.target.value)}
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={isSimulatingSqli}
+                      className="bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-colors h-[34px]"
+                    >
+                      <Zap className="w-3.5 h-3.5" />
+                      <span>{isSimulatingSqli ? 'Simulando...' : 'Simular en Vivo'}</span>
+                    </button>
+                  </form>
+
+                  {/* Resultados en Vivo: Antes vs Después */}
+                  {sqliSimResult && (
+                    <div className="space-y-4 animate-tab-enter">
+                      {/* Comparativa Inyección SQL */}
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {/* ANTES: VULNERABLE */}
+                        <div className="bg-red-50/60 border border-red-200 rounded-xl p-4 space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-red-900 uppercase tracking-wide">
+                              ANTES · Versión Vulnerable (Concatenación)
+                            </span>
+                            <span className="bg-red-600 text-white text-[11px] font-bold px-2 py-0.5 rounded-full tabular-nums">
+                              {sqliSimResult.antes.totalExpuestos} registros filtrados
+                            </span>
+                          </div>
+                          <div className="bg-white/90 border border-red-200 rounded-lg p-2.5 font-mono text-[11px] text-red-900 break-all">
+                            {sqliSimResult.antes.sql}
+                          </div>
+                          <div className="bg-white rounded-lg border border-red-200 overflow-x-auto">
+                            <table className="w-full text-[11px] text-left">
+                              <thead className="bg-red-100/70 text-red-900 font-semibold">
+                                <tr>
+                                  <th className="py-1.5 px-2.5">ID</th>
+                                  <th className="py-1.5 px-2.5">Colaborador Expuesto</th>
+                                  <th className="py-1.5 px-2.5">Correo</th>
+                                  <th className="py-1.5 px-2.5">Rol</th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-red-100 text-slate-700">
+                                {sqliSimResult.antes.muestra.map((row) => (
+                                  <tr key={row.id}>
+                                    <td className="py-1.5 px-2.5 font-mono">{row.id}</td>
+                                    <td className="py-1.5 px-2.5 font-semibold">{row.nombre}</td>
+                                    <td className="py-1.5 px-2.5 font-mono">{row.email}</td>
+                                    <td className="py-1.5 px-2.5 uppercase font-bold text-red-700">{row.rol}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        {/* DESPUÉS: PROTEGIDO */}
+                        <div className="bg-emerald-50/60 border border-emerald-200 rounded-xl p-4 space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-emerald-900 uppercase tracking-wide">
+                              DESPUÉS · Versión Protegida (Parametrizada)
+                            </span>
+                            <span className="bg-emerald-600 text-white text-[11px] font-bold px-2 py-0.5 rounded-full tabular-nums">
+                              {sqliSimResult.despues.totalExpuestos} filas · Ataque Bloqueado
+                            </span>
+                          </div>
+                          <div className="bg-white/90 border border-emerald-200 rounded-lg p-2.5 font-mono text-[11px] text-emerald-900 break-all">
+                            {sqliSimResult.despues.sql}
+                            <div className="text-slate-500 mt-1">Parámetro enlazado como texto literal: "{sqliSimResult.payload}"</div>
+                          </div>
+                          <div className="bg-white rounded-lg border border-emerald-200 p-4 text-center space-y-1.5">
+                            <CheckCircle2 className="w-7 h-7 text-emerald-600 mx-auto" />
+                            <p className="text-xs font-bold text-emerald-900">
+                              Inyección SQL Neutralizada (0 datos expuestos)
+                            </p>
+                            <p className="text-[11px] text-slate-600">
+                              El motor SQLite trató el payload como una cadena literal y no como código SQL ejecutable.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Comparativa CORS: Sin CORS vs Con CORS Estricto */}
+                      {sqliSimResult.corsDemo && (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                          <div className="bg-amber-50/70 border border-amber-200 rounded-xl p-4 text-xs space-y-1.5">
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-amber-900 uppercase">SIN CORS Estricto (Comodín *)</span>
+                              <span className="bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                HTTP {sqliSimResult.corsDemo.sinCors.status} OK
+                              </span>
+                            </div>
+                            <p className="font-mono text-[11px] text-amber-900">{sqliSimResult.corsDemo.sinCors.header}</p>
+                            <p className="text-slate-700">{sqliSimResult.corsDemo.sinCors.resultado}</p>
+                          </div>
+
+                          <div className="bg-blue-50/70 border border-blue-200 rounded-xl p-4 text-xs space-y-1.5">
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-brand-900 uppercase">CON CORS Estricto (Prueba en Vivo)</span>
+                              <span className="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                HTTP {sqliSimResult.corsDemo.conCors.status} Forbidden
+                              </span>
+                            </div>
+                            <p className="font-mono text-[11px] text-brand-900">{sqliSimResult.corsDemo.conCors.header}</p>
+                            <p className="text-slate-700">{sqliSimResult.corsDemo.conCors.resultado}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 {/* SECCIÓN RRHH: APROBACIÓN DE SOLICITUDES DE VACACIONES Y PERMISOS */}
                 <div className="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-6 space-y-4">

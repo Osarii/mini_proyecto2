@@ -54,6 +54,93 @@ app.get('/api/security/csrf-token', issueCsrfToken);
 // Validación CSRF obligatoria en peticiones que modifican estado (POST, PUT, DELETE)
 app.use('/api', verificarCSRF);
 
+// Simulación controlada de Inyección SQL y CORS (Antes vs. Después) - Solo entorno local y rol RRHH
+app.post('/api/security/simulate-sqli', requierePermiso('seguridad:auditar'), async (req, res) => {
+  try {
+    const rawPayload = typeof req.body?.payload === 'string' && req.body.payload.trim()
+      ? req.body.payload.trim()
+      : "' OR '1'='1";
+    const testOrigin = typeof req.body?.testOrigin === 'string' && req.body.testOrigin.trim()
+      ? req.body.testOrigin.trim()
+      : 'https://sitio-malicioso.com';
+
+    // Seguridad de la demo: solo permitir payloads de lectura SELECT (nunca DROP/DELETE/UPDATE)
+    if (/\b(DROP|DELETE|UPDATE|INSERT|ALTER|ATTACH|PRAGMA)\b/i.test(rawPayload)) {
+      return res.status(400).json({ error: 'La simulación solo permite payloads de lectura (SELECT).' });
+    }
+
+    // 1. ANTES (Versión Vulnerable - Concatenación directa)
+    const vulnerableSql = `SELECT id, nombre, email, departamento, puesto, rol FROM colaboradores WHERE email = '${rawPayload}'`;
+    let vulnerableRows = [];
+    let vulnerableError = null;
+    try {
+      vulnerableRows = db.prepare(vulnerableSql).all();
+    } catch (e) {
+      vulnerableError = e.message;
+    }
+
+    // 2. DESPUÉS (Versión Protegida - Sentencia Preparada Parametrizada)
+    const safeSql = 'SELECT id, nombre, email, departamento, puesto, rol FROM colaboradores WHERE email = ?';
+    const safeRows = db.prepare(safeSql).all(rawPayload);
+
+    // 3. Prueba en vivo de CORS (Con protección vs. Sin protección)
+    let corsLiveStatus = 403;
+    let corsLiveBody = 'Origen no autorizado por política CORS';
+    try {
+      const port = process.env.PORT || 3001;
+      const corsRes = await fetch(`http://localhost:${port}/api/health`, {
+        headers: { Origin: testOrigin }
+      });
+      corsLiveStatus = corsRes.status;
+      const txt = await corsRes.text();
+      corsLiveBody = txt;
+    } catch (e) {
+      corsLiveBody = e.message;
+    }
+
+    res.json({
+      payload: rawPayload,
+      timestamp: new Date().toLocaleTimeString('es-CR'),
+      antes: {
+        sql: vulnerableSql,
+        totalExpuestos: vulnerableRows.length,
+        muestra: vulnerableRows.slice(0, 6),
+        error: vulnerableError
+      },
+      despues: {
+        sql: safeSql,
+        totalExpuestos: safeRows.length,
+        muestra: safeRows,
+        bloqueado: safeRows.length === 0
+      },
+      corsDemo: {
+        origenAtacante: testOrigin,
+        sinCors: {
+          status: 200,
+          header: 'Access-Control-Allow-Origin: *',
+          resultado: `VULNERABLE: El servidor aceptó la petición desde ${testOrigin} y expuso los datos de la API.`
+        },
+        conCors: {
+          status: corsLiveStatus,
+          header: 'Lista blanca estricta (localhost:3001 / localhost:5173)',
+          resultado: corsLiveStatus === 403
+            ? `BLOQUEADO EN VIVO (HTTP 403): ${corsLiveBody}`
+            : `Respuesta HTTP ${corsLiveStatus}: ${corsLiveBody}`
+        }
+      },
+      defensasActivas: {
+        sqli: 'Sentencias preparadas parametrizadas (?)',
+        xss: 'Content-Security-Policy (CSP) + X-Frame-Options: DENY',
+        csrf: 'Double Submit Cookie (SameSite=Lax) + X-CSRF-Token',
+        cors: 'Lista blanca de orígenes (sin comodín *)',
+        rbac: 'Matriz permisosPorRol verificada en el servidor'
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
